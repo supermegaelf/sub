@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p "Enter domain for Sub-Site: " PRIMARY_DOMAIN
+read -p "Sub-Site domain: " PRIMARY_DOMAIN
 
 if [ -z "$PRIMARY_DOMAIN" ]; then
     echo "Error: domain cannot be empty"
