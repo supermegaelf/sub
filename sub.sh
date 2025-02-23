@@ -5,27 +5,20 @@ TEMPLATE_FILE="$TEMPLATE_DIR/index.html"
 CONFIG_FILE="/opt/marzban/.env"
 
 mkdir -p "$TEMPLATE_DIR" &&
-wget -q https://raw.githubusercontent.com/supermegaelf/Marzban-Subscription-Page/main/index.html -O "$TEMPLATE_FILE" || {
-    echo "Error: failed to download the template"
-    exit 1
-}
+wget -q https://raw.githubusercontent.com/supermegaelf/Marzban-Subscription-Page/main/index.html -O "$TEMPLATE_FILE"
 
 if [[ ! -f "$CONFIG_FILE" ]]; then
-    echo "Error: file $CONFIG_FILE not found"
+    echo "Error: файл $CONFIG_FILE не найден"
     exit 1
 fi
 
-# Create a backup
-cp "$CONFIG_FILE" "$CONFIG_FILE.bak"
-
 sed -i 's/^# *CUSTOM_TEMPLATES_DIRECTORY="\/var\/lib\/marzban\/templates\/"/CUSTOM_TEMPLATES_DIRECTORY="\/var\/lib\/marzban\/templates\/"/' "$CONFIG_FILE"
 sed -i 's/^# *SUBSCRIPTION_PAGE_TEMPLATE="subscription\/index.html"/SUBSCRIPTION_PAGE_TEMPLATE="subscription\/index.html"/' "$CONFIG_FILE"
-sed -i 's/^# *SUB_UPDATE_INTERVAL = "12"/SUB_UPDATE_INTERVAL = "1"/' "$CONFIG_FILE"
 
 read -p "Sub-Site domain: " PRIMARY_DOMAIN
 
 if [ -z "$PRIMARY_DOMAIN" ]; then
-    echo "Error: domain cannot be empty"
+    echo "Error: домен не может быть пустым"
     exit 1
 fi
 
